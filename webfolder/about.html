@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@1,600&display=swap" rel="stylesheet">
+    <link href="heroes.css" rel="stylesheet">
+    <title>About Tokenify</title>
+</head>
+<body>
+    <main>
+
+  
+    <div class="px-4 pt-5 my-5 text-center border-bottom">
+        <h1 class="display-4 fw-bold"><u>Tokenify</u></h1>
+        <div class="col-lg-6 mx-auto">
+          <p class="lead mb-4">Tokenify is the easiest way and minimalist way to tokenify your requests.</p>
+          <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
+        
+          </div>
+        </div>
+        <div class="overflow-hidden" style="max-height: 30vh;">
+          <div class="container px-5">
+            <img src="{{url_for('static',filename = 'tokenify_home.png')}}" class="img-fluid border rounded-3 shadow-lg mb-4" alt="Home" width="1200" height="1200" loading="lazy">
+          </div>
+        </div>
+      </div>
+    
+      <div class="b-example-divider"></div>
+      <div class="container col-xxl-8 px-4 py-5">
+        <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+          <div class="col-10 col-sm-8 col-lg-6">
+            <img src="{{url_for('static',filename = 'tokenify_createToken.png')}}" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="1000" height="1000" loading="lazy">
+          </div>
+          <div class="col-lg-6">
+            <h1 class="display-5 fw-bold lh-1 mb-3">One Click Token</h1>
+            <p class="lead">Create Tokens the Easiest Way Possible</p>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+            
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="b-example-divider"></div>
+
+  <div class="container my-5">
+    <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
+      <div class="col-lg-7 p-3 p-lg-5 pt-lg-3">
+        <h1 class="display-4 fw-bold lh-1">One Click Work/Close</h1>
+        <p class="lead">You can work/open in one click.</p>
+        <p class="lead">By Default the token will be in open status.</p>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
+    
+        </div>
+      </div>
+      <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
+          <img class="rounded-lg-3" src="{{url_for('static',filename = 'tokenify_createToken.png')}}" alt="" width="1280">
+      </div>
+    </div>
+  </div>
+     
+  <div class="bg-dark text-secondary px-4 py-5 text-center">
+    <div class="py-5">
+      <h1 class="display-5 fw-bold text-white">Tokenify Details</h1>
+      <div class="col-lg-6 mx-auto">
+        <p class="fs-5 mb-4">The Frontend is developed using BOOTSTRAP 5.0</p>
+        <p class="fs-5 mb-4">For Backend we have used python (flask) for hosting/developement and Postgres 12 with PGAdmin 4</p>
+
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+          <a href="http://{{ipaddress}}:5000/">
+            <button type="button" class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold">Go Back Home</button>
+          </a>
+       
+        </div>
+      </div>
+    </div>
+  </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+</main>
+</body>
+</html>

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@1,600&display=swap" rel="stylesheet">
+
+<style>
+
+tr {
+width: 100%;
+display: inline-table;
+table-layout: fixed;
+}
+
+table{
+ height:300px;        
+ display: block;
+}
+tbody{
+  overflow-y: scroll;      
+  height: 80%;            
+  width: 100%;
+  position: absolute;
+}
+</style>
+
+    <title>Tokenify</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#" style="font-family: 'Source Code Pro', monospace;">&nbsp;Tokenify</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <button type="button" class="btn btn-light shadow-none" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Create New Token <span class="badge bg-dark" id="createToken"></span>
+              </button>
+            </li>
+            <li class="nav-item active">
+              <button type="button" class="btn btn-light shadow-none" >
+                Open Requests <span class="badge bg-dark" id="openRequestToken"></span>
+              </button>
+            </li>
+            <li class="nav-item active">
+              <button type="button" class="btn btn-light shadow-none" >
+                Work In Progress <span class="badge bg-dark" id="wipRequestToken"></span>
+              </button>
+            </li>
+            
+          </ul>
+         
+        </div>
+        <form class="form-inline">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" id="customTokenSearch">
+          </form>
+          &nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-outline-success my-2 my-sm-0" type="submit"  data-bs-toggle="modal" data-bs-target="#exampleModal2" onclick="customSearch()">Search</button>
+          <span>
+            <a class="nav-link" href="http://{{ipaddress}}:{{port}}/logout">Logout</a>
+          </span>
+       
+
+      </nav>
+  
+      
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Create New Token</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form action="http://{{ipaddress}}:{{port}}/nTokenRequest" method="POST" id="newTokenRequest">
+                <label for="spaceOnly1"></label>
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="New Token Title" name="newTokenTitle" id="newTokenTitle" required>
+              </div>
+              <div class="form-row">
+              <br>
+                
+    
+                <div class="form-group col-md-2 ">
+                  <label for="spaceOnly2">Assign To Team</label>
+                  <select class="form-control" name="assignTeam" id="assignTeam" required>
+                    <option value="">None</option>
+                    <option value="Production">Production</option>
+                    <option value="Operation">Operation</option>
+                    <option value="Content">Content</option>
+                    <option value="Dev">Dev</option>
+                  </select>
+
+                  </div>
+                  <div class="form-group col-md-2">
+                    <br>
+                    <label for="spaceOnly2">Priority</label>
+                    <select class="form-control" name="priority" id="priority" required>
+                      <option value="">None</option>
+                      <option value="Low">Low</option>
+                      <option value="Medium">Medium</option>
+                      <option value="High">High</option>
+                     
+                    </select>
+  
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-dark">Create</button>
+                  </div>
+
+              </form>
+
+            </div>
+            <div class="modal-footer">
+             <span style="font-family: 'Source Code Pro', monospace;">Tokenify</span> <small>Made with ❤️ </small>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">
+                <h2 id="selectedToken" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Tooltip</em> <u>with</u> <b>HTML</b>"></h2></h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+         
+              <div class="container">
+                <div class="row">
+                  <div class="col">
+                    <h5>Token Title :</h5><h5 id="mtokenTitle"></h5>
+                    </div>
+                    </div><br>
+                <div class="row">
+                  <div class="col">
+                    <h5>Created By :</h5><h5 id="mtokencreatedBy"></h5>
+                  </div>
+                  <div class="col">
+                    <h5>Assigned To :</h5><h5 id="mtokenassignto"></h5>
+                  </div>
+                </div><br>
+                <div class="row">
+                  <div class="col">
+                    <h5>Raised On Date :</h5><h5 id="mtokenraiseddate"></h5>
+                  </div>
+                  <div class="col">
+                    <h5>Raised on Time :</h5><h5 id="mtokenraisedtime"></h5>
+                  </div>
+                </div><br>
+                <div class="row">
+                  <div class="col">
+                    <h5>Priority :</h5><h5 id="mtokenpriority"></h5>
+                  </div>
+                  <div class="col">
+                    <h5>Token Status :</h5><h5 id="mtokenstatus"></h5>
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col-md-auto">
+                    <form action="http://{{ipaddress}}:{{port}}/uworking" method="POST" id="cTokenForm">
+                      <input type = "hidden" name = "cToken" id="cToken"/>
+                      <button type="submit" class="btn btn-success">Work In Progress</button>
+                       </form>
+                    </div>
+                    <div class="col-md-auto">
+                      <form action="http://{{ipaddress}}:{{port}}/tokenClosed" method="POST" id="tokenClosed">
+                        <input type = "hidden" name = "closedToken" id="closedToken"/>
+                        <input id="ccomment" type = "hidden" name="ccomment"></input>
+                        <button type="button" class="btn btn-danger" onclick=functiontClosed()>Closed Token</button>
+                         </form>              
+                    </div>
+                   
+                    
+                      <div class="mb-3"><br>
+                       <h6>Comments</h6>
+                        <textarea class="form-control" id="comment" rows="4"></textarea>
+                      </div>
+                    </div>
+
+              </div>    <!-- container closed for all data display in modal -->
+
+           
+            </div>
+            <div class="modal-footer">
+             <span style="font-family: 'Source Code Pro', monospace;">Tokenify</span> <small>Made with ❤️ </small>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <table class="table table-borderless table-hover table-fixed text-center">
+        <thead>  
+          <tr>
+            <th scope="col" style="width:100px">TokenID #</th>
+            <th scope="col">Request Name</th>
+            <th scope="col" style="width:200px">Raised By</th>
+            <th scope="col" style="width:100px">To Team</th>
+            <th scope="col" style="width:150px">Raised On Date</th>
+            <th scope="col" style="width:100px">Priority</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for tokenno,username,tokentitle,assignteam,priority,ctime,cdate,tokenstatus,tClosedComments in tokenData %}   
+        
+          <tr id="{{tokenstatus}}">
+          
+            <th scope="row" class="{{loop.index0}}" id="tokenno" style="width:100px"><a data-bs-toggle="modal" data-bs-target="#exampleModal2"></a><u>{{tokenno}}</u></th>
+            <td class="{{loop.index0}}" id="tokentitle"><a data-bs-toggle="modal" data-bs-target="#exampleModal2">&nbsp;&nbsp;{{tokentitle}}</a></td>
+            <td class="{{loop.index0}}" id="username" style="width:200px"><a data-bs-toggle="modal" data-bs-target="#exampleModal2">&nbsp;&nbsp;&nbsp;{{username}}</a></td>
+            <td class="{{loop.index0}}" id="assignteam" style="width:100px"><a data-bs-toggle="modal" data-bs-target="#exampleModal2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{assignteam}}</a></td>
+            <td class="{{loop.index0}}" id="cdate" style="width:150px"><a data-bs-toggle="modal" data-bs-target="#exampleModal2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{cdate}}</a></td>
+            <td class="{{loop.index0}}" id="priority" style="width:100px"><a data-bs-toggle="modal" data-bs-target="#exampleModal2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{priority}}</a></td>
+            <td class="{{loop.index0}}" id="ctime" style="display:none;"><a data-bs-toggle="modal" data-bs-target="#exampleModal2">{{ctime}}</a></td>
+            <td class="{{loop.index0}}" id="tokenstatus" style="display:none;"><a data-bs-toggle="modal" data-bs-target="#exampleModal2">{{tokenstatus}}</a></td>
+            <td class="{{loop.index0}}" id="tClosedComments" style="display:none;"><a data-bs-toggle="modal" data-bs-target="#exampleModal2">{{tClosedComments}}</a></td>
+          </tr>
+      
+          {% endfor %}
+        </tbody>
+      </table>
+
+
+<script>
+var listItems1 = document.querySelectorAll("#OPEN");
+var openRequest=listItems1.length;
+document.getElementById("openRequestToken").innerText=openRequest;
+listItems1.forEach(function(item) {
+  item.className+="table-light"
+ 
+});
+
+var listItems2 = document.querySelectorAll("#CLOSED");
+listItems2.forEach(function(item) {
+  item.className+="table-danger"
+ 
+});
+var listItems4 = document.querySelectorAll("#WIP");
+var wipRequest=listItems4.length;
+document.getElementById("wipRequestToken").innerText=wipRequest;
+listItems4.forEach(function(item) {
+  item.className+="table-success"
+ 
+});
+
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+
+      var listItems3 = document.querySelectorAll("tr td");
+      var listAtokens=document.querySelectorAll("#tokenno")   //listAtokens
+      var listAusername=document.querySelectorAll("#username")   //listAtokens
+      var listAlistAtitletokens=document.querySelectorAll("#tokentitle")   //listAtokens
+      var listAassignteam=document.querySelectorAll("#assignteam")   //listAtokens
+      var listApriority=document.querySelectorAll("#priority")   //listAtokens
+      var listActime=document.querySelectorAll("#ctime")   //listAtokens
+      var listAcdate=document.querySelectorAll("#cdate")   //listAtokens
+      var listAtokenstatus=document.querySelectorAll("#tokenstatus")   //listAtokens
+      var listAComments=document.querySelectorAll("#tClosedComments")   //listAComments
+
+                                            //setting variables here
+      var abc;          
+         listItems3.forEach(function(item) {          
+          item.onclick = function(e) {
+            console.log(this.className); // this returns clicked li's value
+            selectedToken=this.className
+            pselectedToken=parseInt(this.className)+1
+            pselectedToken.toString();
+            console.log(pselectedToken)
+            abc="Token #"+listAtokens[selectedToken].innerText
+            document.getElementById("selectedToken").innerText="Token #"+listAtokens[selectedToken].innerText
+            document.getElementById("mtokenTitle").innerText=listAlistAtitletokens[selectedToken].innerText
+            document.getElementById("mtokencreatedBy").innerText=listAusername[selectedToken].innerText
+            document.getElementById("mtokenassignto").innerText=listAassignteam[selectedToken].innerText
+            document.getElementById("mtokenraiseddate").innerText=listAcdate[selectedToken].innerText
+            document.getElementById("mtokenraisedtime").innerText=listActime[selectedToken].innerText
+            document.getElementById("mtokenpriority").innerText=listApriority[pselectedToken].innerText
+            document.getElementById("mtokenstatus").innerText=listAtokenstatus[selectedToken].innerText
+            document.getElementById("cToken").value=listAtokens[selectedToken].innerText
+            document.getElementById("closedToken").value=listAtokens[selectedToken].innerText
+            document.getElementById("comment").value=listAComments[selectedToken].innerText 
+            }
+        });
+               
+   
+        //fetch api and modal values and setting
+
+         var listCount=document.querySelectorAll("tbody tr th");
+        // console.log(listCount[1].className)
+
+        function functiontClosed(){
+          tComments= document.getElementById("comment").value
+          document.getElementById("ccomment").value = tComments;
+          document.getElementById("tokenClosed").submit();
+        }
+
+
+                                              // custom search
+
+    
+       function customSearch(){
+        var cS=document.getElementById("customTokenSearch").value
+        var cSList = document.querySelectorAll("th");
+        var cSearchVar;
+        cSList.forEach(function(item) { 
+          if(item.innerText==cS){
+            console.log(item.className)
+            cSearchVar=item.className
+          }
+        }); 
+        document.getElementById("selectedToken").innerText="Token #"+listAtokens[cSearchVar].innerText
+            document.getElementById("mtokenTitle").innerText=listAlistAtitletokens[cSearchVar].innerText
+            document.getElementById("mtokencreatedBy").innerText=listAusername[cSearchVar].innerText
+            document.getElementById("mtokenassignto").innerText=listAassignteam[cSearchVar].innerText
+            document.getElementById("mtokenraiseddate").innerText=listAcdate[cSearchVar].innerText
+            document.getElementById("mtokenraisedtime").innerText=listActime[cSearchVar].innerText
+            document.getElementById("mtokenpriority").innerText=listApriority[cSearchVar].innerText
+            document.getElementById("mtokenstatus").innerText=listAtokenstatus[cSearchVar].innerText
+            document.getElementById("cToken").value=listAtokens[cSearchVar].innerText
+            document.getElementById("closedToken").value=listAtokens[cSearchVar].innerText
+            document.getElementById("comment").value=listAComments[cSearchVar].innerText 
+       }
+
+      // copy token id onclick 
+      listAtokens.forEach(function(item) {          
+          item.onclick = function(e) {
+           // console.log(this.innerText); 
+           // const span = document.querySelector("#selectedToken");
+
+item.onclick = function() {
+  document.execCommand("copy");
+}
+
+item.addEventListener("copy", function(event) {
+  event.preventDefault();
+  if (event.clipboardData) {
+    event.clipboardData.setData("text/plain", "Token #"+item.textContent);
+    console.log(event.clipboardData.getData("text"))
+  }
+});
+
+      
+            
+            }
+        });
+
+      </script>
+ 
+
+  
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+
+
+
+</body>
+</html>
